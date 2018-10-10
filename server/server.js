@@ -40,12 +40,12 @@ app.get("/todos/:id", (req, res) => {
   Todo.findById(id)
     .then(response => {
       if (!response) {
-        res.sendStatus(404);
+        res.status(404).send();
       }
-      res.send({ response });
+      res.send(response);
     })
     .catch(err => {
-      res.sendStatus(400);
+      res.status(400).send();
     });
 });
 
