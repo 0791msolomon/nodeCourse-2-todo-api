@@ -1,10 +1,10 @@
 //Library imports
 const express = require("express");
 const bodyParser = require("body-parser");
+const { ObjectID } = require("mongodb");
 //Local imports
 const { mongoose } = require("./db/mongoose");
 const { Todo } = require("./models/todo");
-const { User } = require("./models/user");
 
 const app = express();
 app.use(bodyParser.json());
@@ -31,6 +31,24 @@ app.get("/todos", (req, res) => {
     })
     .catch(err => res.status(400).send(err));
 });
+
+app.get("/todos/:id", (req, res) => {
+  let id = req.params.id;
+  if (!ObjectID.isValid(id)) {
+    res.status(404).send();
+  }
+  Todo.findById(id)
+    .then(response => {
+      if (!response) {
+        res.sendStatus(404);
+      }
+      res.send({ response });
+    })
+    .catch(err => {
+      res.sendStatus(400);
+    });
+});
+
 app.listen(3000, () => {
   console.log("listening on port 3000");
 });
