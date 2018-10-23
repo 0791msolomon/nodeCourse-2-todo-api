@@ -1,3 +1,4 @@
+require("./config/config");
 //Library imports
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -8,7 +9,7 @@ const { mongoose } = require("./db/mongoose");
 const { Todo } = require("./models/todo");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 app.use(bodyParser.json());
 
 app.post("/todos", (req, res) => {
@@ -80,6 +81,9 @@ app.patch("/todos/:id", (req, res) => {
   }
   Todo.findByIdAndUpdate(id, { $set: body }, { new: true })
     .then(response => {
+      if (!response) {
+        return res.status(404).send();
+      }
       res.send(response);
     })
     .catch(err => {
