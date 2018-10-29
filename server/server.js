@@ -72,7 +72,7 @@ app.patch("/todos/:id", (req, res) => {
   let id = req.params.id;
   let body = _.pick(req.body, ["text", "completed"]);
   if (!ObjectID.isValid(id)) {
-    return res.status(404).send();
+    return res.status(400).send();
   }
   if (_.isBoolean(body.completed) && body.completed) {
     body.completedAt = new Date().getTime();
