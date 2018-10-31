@@ -96,14 +96,23 @@ app.post("/users", (req, res) => {
   let user = new User(body);
 
   user
-    .save()
+    .save(body)
     .then(() => {
       return user.generateAuthToken();
     })
     .then(token => {
       res.header("x-auth", token).send(user);
     })
-    .catch(e => {
+    .catch(err => {
+      res.status(400).send(err);
+    });
+});
+app.get("/users", (req, res) => {
+  User.find()
+    .then(response => {
+      res.send(response);
+    })
+    .catch(err => {
       res.status(400).send(err);
     });
 });

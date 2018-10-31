@@ -4,21 +4,22 @@ const jwt = require("jsonwebtoken");
 let data = {
   id: 10
 };
-
+console.log(data);
 let token = jwt.sign(data, "123abc");
-
 console.log(token);
 let decoded = jwt.verify(token, "123abc");
-console.log("decoded", decoded);
-// const message = "i am user number 1";
-// const hash = SHA256(message).toString();
-// console.log(`message ${message}`);
-// console.log(`hash ${hash}`);
+console.log("this is decoded", decoded);
+
+// let message = "I am user number 3";
+// let hash = SHA256(message).toString();
+// console.log(message);
+// console.log(hash);
 
 // const data = {
 //   id: 4
 // };
-// const token = {
+
+// let token = {
 //   data,
 //   hash: SHA256(JSON.stringify(data) + "somesecret").toString()
 // };
@@ -26,9 +27,10 @@ console.log("decoded", decoded);
 // token.data.id = 5;
 // token.hash = SHA256(JSON.stringify(token.data)).toString();
 
-// let resultHash = SHA256(JSON.stringify(token.data) + "somesecret").toString();
+// const resultHash = SHA256(JSON.stringify(token.data) + "somesecret").toString();
+
 // if (resultHash === token.hash) {
-//   console.log("data was not changed");
+//   console.log("pass");
 // } else {
-//   console.log("data was changed. DON'T TRUST");
+//   console.log("data was changed dont trust");
 // }
